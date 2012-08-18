@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block body %}
+	<div class="message-nav">
+	<ul>
+	<li> <a href="/messages/new/{{ mail.id }}/" ><img src="/static/replymail.png" />  <span> Reply </span> </a></li>
+	<li> <form action="/messages/delete/{{ mail.id }}/" method="post"> <input type="image" src="/static/deletemail.png"> </form><span> Delete Message </span></li>
+	<li> <a href="/messages/new/" ><img src="/static/newmail.png" />  <span> New Message </span> </a></li>
+	<li> <a href="/messages/main/" ><img src="/static/homemail.jpg" />  <span> Message Home </span> </a></li>
+	</ul>
+	</div>
+	<div class="message-view">
+    <h2>{{ mail.head }}</h2>
+	</br>
+	<div class="info">
+	 <p> {{ mail.body }}</p>
+	 </div>
+	</div>
+{% endblock %}

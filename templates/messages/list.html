@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h2>{{heading}}</h2>
+    <ul class="items-list">
+        {% for item in items %}
+            <li>
+			<a href="/items/{{item.id}}">
+			<h3>{{ item.name }}</h3>
+			<p>{{ item.desc|truncatewords:10}} </p>
+			<p> {{ item.created|date:"M d"}} </p>
+			</a>
+			
+			</li>
+        {% endfor %}
+    </ul>
+	<div class="pagination">
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a href="?page={{ items.previous_page_number }}">previous</a>
+        {% endif %}
+		{% if items %}
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+		{% endif %}
+
+        {% if items.has_next %}
+            <a href="?page={{ items.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

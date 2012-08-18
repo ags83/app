@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head %}<title>Create an account</title>{% endblock %}
+
+{% block body %}
+{{stuff}}
+     <h1>Register</h1>
+
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+
+    <form action="" method="post">
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+    <div class="search-results list">
+
+    <h2>Search results</h2>
+    <ul class="items-list">
+	
+	{% if not items and request_method == "POST" %}
+		<p> no items listed </p>
+	{% endif %}
+	
+        {% for item in items %}
+            <li>
+			<a href="/items/{{item.id}}">
+   {% thumbnail item.image "70x70" crop="center" as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+	{% endthumbnail %}
+	<div class="item-text">
+	
+	<span class="itemname"> {{ item.name }} </span>
+	<span class="itemdate"> Listed : {{ item.created|date:"F j"  }} </span>
+	
+	
+	</div></a>
+
+			
+	
+			
+	</li>
+        {% endfor %}
+    </ul>
+	
+	<div class="pagination">
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a href="?page={{ items.previous_page_number }}"><<</a>
+        {% endif %}
+		{% if items %}
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+		{% endif %}
+        {% if items.has_next %}
+            <a href="?page={{ items.next_page_number }}">>></a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+{% endblock %}

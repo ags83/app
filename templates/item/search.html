@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+
+
+
+{% block body %}
+
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$("#id_searcharea").val(100);
+			$("#slide-value").text('100');
+			$('#slider').slider({
+					min:20,
+					max:500,
+					value:100
+				});
+			$( "#slider").bind( "slide", function(event, ui) {
+				$("#slide-value").text(ui.value);
+				$("#id_searcharea").val(ui.value);
+			});
+			
+			$( "#slider" ).bind( "slidechange", function(event, ui) {
+				$('#map_canvas').gmap('clear', 'overlays');
+				var marker = $('#map_canvas').gmap('get', 'markers > mark');
+				var radius =  $("#id_searcharea").val() * 1000;	
+				$('#map_canvas').gmap('addShape', 'Circle', {
+                'strokeWeight': 0,
+                'fillColor': "#2AAD95",
+                'fillOpacity': 0.4,
+                'center': marker.getPosition(),
+                'radius': radius,
+                'draggable':false
+            });
+			
+			});
+				
+                $('#map_canvas').gmap().bind('init', function(event, map) { 
+				
+				
+				
+				
+				$(map).click( function(event) {
+					
+					 
+					
+					//$('#map_canvas').gmap('clear', 'overlays'); 
+					$('#map_canvas').gmap('clear', 'markers');
+					$('#map_canvas').gmap('clear', 'overlays');
+					
+					
+					//$('#map_canvas').gmap('get', 'markers')[0].setMap(null); 
+					$('#map_canvas').gmap('addMarker', {
+					'id': 'mark',
+					'position': event.latLng, 
+					'draggable': false, 
+					'bounds': false
+					}, function(map, marker) {
+					$("#id_lat").val(marker.getPosition().lat()); 
+					$("#id_long").val(marker.getPosition().lng()); 
+					})
+				var radius =  $("#id_searcharea").val() * 1000;	
+				myc=$('#map_canvas').gmap('addShape', 'Circle', {
+                'strokeWeight': 0,
+                'fillColor': "#2AAD95",
+                'fillOpacity': 0.4,
+                'center': event.latLng,
+                'radius': radius,
+                'draggable':false
+            });
+			
+			});
+				
+				
+				$('#map_canvas').gmap('getCurrentPosition', function(position, status) {
+				var radius =  $("#id_searcharea").val() * 1000;	
+				if ( status === 'OK' ) {
+					$('#map_canvas').gmap('clear', 'markers');
+					$('#map_canvas').gmap('clear', 'overlays');
+					var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					$('#map_canvas').gmap('addMarker', {'id': 'mark','position': clientPosition, 'bounds': true});
+					var radius =  $("#id_searcharea").val() * 1000;	
+				$('#map_canvas').gmap('addShape', 'Circle', {
+                'strokeWeight': 0,
+                'fillColor': "#2AAD95",
+                'fillOpacity': 0.4,
+                'center': clientPosition,
+                'radius': radius,
+                'draggable':false
+            });
+			$('#map_canvas').gmap('option', 'zoom', 6);
+				$("#id_lat").val(position.coords.latitude); 
+				$("#id_long").val(position.coords.longitude); 
+					
+				}
+				else
+				{
+				$('#map_canvas').gmap('addMarker', {'id': 'mark','position': '-24.994167,134.866944', 'bounds': true});
+				
+				var marker = $('#map_canvas').gmap('get', 'markers > mark');
+				var radius =  $("#id_searcharea").val() * 1000;	
+				$('#map_canvas').gmap('addShape', 'Circle', {
+                'strokeWeight': 0,
+                'fillColor': "#2AAD95",
+                'fillOpacity': 0.4,
+                'center': marker.getPosition(),
+                'radius': radius,
+                'draggable':false
+            });
+			
+			
+				$('#map_canvas').gmap('option', 'zoom', 4);
+				$("#id_lat").val('-24.994167'); 
+				$("#id_long").val('134.866944'); 
+				
+				
+				}
+			});
+	
+			
+		});
+
+$(function() {
+	$('.fieldWrapper.category-list li input').unwrap();
+    $('input:radio').each(function() {
+        $(this).hide();
+		
+        $('<a tip="' + $(this).attr('value') +  '" class="radio-fx tooltip ' + $(this).attr('value') + '" href="#"> </a>').insertAfter(this);
+	});
+	$('.radio-fx.accomodation').addClass('checked');
+    $('.radio-fx').live('click',function(e) {
+		$('.radio-fx').each(function() {
+			$(this).removeClass('checked');
+		});
+        e.preventDefault();
+		$(this).addClass('checked');
+        $check = $(this).prev('input:radio');
+        var unique = '.'+this.className.split(' ')[1]+' span';
+        $(unique).attr('class', 'radio');
+        $(this).find('span').attr('class', 'radio-checked');
+        $check.attr('checked', true);
+    });
+
+    $('#change-skin').change(function() {
+        $('form table').attr('id', this.value);
+    }); 
+});
+
+});
+
+</script>
+<div class="search-form">
+
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+
+    <form action="" method="get">
+		Category:
+		<div class="fieldWrapper category-list">
+			{{ form.category }}
+			{{ form.lat }} {{ form.long }} {{ form.searcharea }} 
+       
+		</div>
+		<p> Within <span id="slide-value"></span> km's of...<p>
+            <div id="map_canvas" style="width:265px;height:265px"></div>
+			
+			<div id="slider"> </div>  
+        <input type="submit" value="Submit" class="button">
+    </form>
+</div>
+	<div class="search-results">
+	<h2>Search results</h2>
+    
+    <ul class="items-list">
+	
+	{% if not items and queries.urlencode %}
+		<p> No items are currently listed that match that search criteria.</p>
+	{% endif %}
+	
+        {% for item in items %}
+            <li>
+			<a href="/items/{{item.id}}">
+   {% thumbnail item.image "70x70" crop="center" as im %}
+    <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+	{% endthumbnail %}
+	<div class="item-text">
+	
+	<span class="itemname"> {{ item.name }} </span>
+	<span class="itemdate"> Listed : {{ item.created|date:"F j"  }} </span>
+	</div>
+			</a>
+	
+			
+	</li>
+        {% endfor %}
+    </ul>
+	
+	<div class="pagination">
+    <span class="step-links">
+        {% if items.has_previous %}
+            <a href="?{{queries.urlencode}}&amp;page={{ items.previous_page_number }}"><<<</a>
+        {% endif %}
+		{% if items %}
+        <span class="current">
+            Page {{ items.number }} of {{ items.paginator.num_pages }}.
+        </span>
+		{% endif %}
+        {% if items.has_next %}
+            <a href="?{{queries.urlencode}}&amp;page={{ items.next_page_number }}">>>></a>
+        {% endif %}
+    </span>
+</div>
+
+</div>
+	
+{% endblock %}
+

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Search items{% endblock %}
+
+{% block body %}
+<div class="form-wrapper">
+     <h2>Search items</h2>
+
+    {% if form.errors %}
+        <p style="color: red;">
+            Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+    {% endif %}
+
+    <form action="" method="post" enctype="multipart/form-data">
+            {{ form.as_p }}
+        <input type="submit" value="Submit" class="button">
+    </form>
+	
+</div>
+{% endblock %}
+
