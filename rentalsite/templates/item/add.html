@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load thumbnail %}
 
 {% block title %}Create an account{% endblock %}
 
@@ -107,7 +108,16 @@ $('input[type=file]').change(function(){
         {{ form.name }}
 			
 <input type="file" name="image" id="id_image" />
-<span class="filename" style="display: inline;position:relative;left:15px; ">Select an Image.</span>
+<span class="filename" style="display: inline;position:relative;left:15px; ">
+{% if item.image %}
+   {% thumbnail item.image "100x100" crop="center" as im %}
+    <a href="{{ item.image.url }}" class="imagelink" > <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"> </a>
+	{% endthumbnail %}
+	{% else %}
+	Select an image
+	{% endif %}
+
+</span>
     </div>
 
 

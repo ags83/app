@@ -30,17 +30,17 @@
 </script>
 	<div class="item-view">
 	
-		<div class="itemheader" {% ifequal item.category "accomodation" %} style="background: #F7F7F7 url('/static/img/accomodation.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "motoring" %} style="background: #F7F7F7 url('/static/img/motoring.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "electronics" %} style="background: #E3E3E3 url('/static/img/electronics.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "boating" %} style="background: #E3E3E3 url('/static/img/boating.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "people" %} style="background: #E3E3E3 url('/static/img/people.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "householdgoods" %} style="background: #E3E3E3 url('/static/img/householdgoods.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "sporting" %} style="background: #E3E3E3 url('/static/img/sporting.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "baby" %} style="background: #E3E3E3 url('/static/img/baby.png') no-repeat;"{% endifequal %}
-								{% ifequal item.category "music" %} style="background: #E3E3E3 url('/static/img/music.png') no-repeat;"{% endifequal %}>
+		<div class="itemheader" {% ifequal item.category "accomodation" %} style="background: #FFF url('/static/img/accomodation.png') no-repeat; background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "motoring" %} style="background: #F7F7F7 url('/static/img/motoring.png') no-repeat;background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "electronics" %} style="background: #E3E3E3 url('/static/img/electronics.png') no-repeat;background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "boating" %} style="background: #E3E3E3 url('/static/img/boating.png') no-repeat;background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "people" %} style="background: #E3E3E3 url('/static/img/people.png') no-repeat;background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "householdgoods" %} style="background: #E3E3E3 url('/static/img/householdgoods.png') no-repeat;background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "sporting" %} style="background: #E3E3E3 url('/static/img/sporting.png') no-repeat;background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "baby" %} style="background: #E3E3E3 url('/static/img/baby.png') no-repeat;background-position:10px 15px;"{% endifequal %}
+								{% ifequal item.category "music" %} style="background: #E3E3E3 url('/static/img/music.png') no-repeat;background-position:10px 15px;"{% endifequal %}>
 									
-		{{ item.name }}
+		<div class="itemname">{{ item.name }} </div>
 		<span class="itemdate"> Listed : {{ item.created|date:"F j"  }} </span>
 		
 		{% if user == item.user %}

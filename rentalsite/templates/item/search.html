@@ -188,8 +188,8 @@ $(function() {
 	{% endthumbnail %}
 	<div class="item-text">
 	
-	<span class="itemname"> {{ item.name }} </span>
-	<span class="itemdate"> Listed : {{ item.created|date:"F j"  }} </span>
+	<div class="itemname"> {{ item.name }} </div>
+	<span class="itemdate"> {{ item.created|date:"F j"  }} </span>
 	</div>
 			</a>
 	

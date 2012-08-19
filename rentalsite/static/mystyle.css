@@ -165,7 +165,9 @@ box-shadow: 2px 2px 10px #E3E3E3;
 
 }
 div.search-results li img {
-display:inline;
+display:block;
+width:70px;
+height:70px;
 float:left;
 margin-right:20px;
 
@@ -185,16 +187,26 @@ ul.items-list li {
 	margin-top:10px;
 	padding-right:10px;
 	position:relative;
+	overflow:hidden;
+	
 }
+
+
 
 ul.items-list li a{
 
 }
 div.item-text {
-width:450px;
-display:inline;
+width:380px;
+display:block;
 float:right;
-position:relative;
+}
+
+div.itemname {
+width:300px;
+display:block;
+float:left;
+
 }
 
 img.edit{
@@ -234,6 +246,8 @@ div.itemheader {
 	font-weight:bold;
 	font-size:24px;
 	position:relative;
+	overflow:hidden;
+	border-bottom:5px solid #E3E3E3;
 	
 }
 
@@ -345,13 +359,32 @@ font-family: lobster;
 
 
 .item-view {
-	width:700px;
+	width:700px; 
 	height:550px;
 	border:3px solid #E3E3E3;
 	box-shadow: 2px 2px 10px #E3E3E3;
 	padding-top: 0px;
 	display:block;
 	margin:0px auto;
+
+
+}
+
+span.filename img {
+position:relative;
+top:70px; left:50px;
+
+border:3px solid #E3E3E3;
+border-radius:5px;
+
+}
+
+.item-view .itemname {
+position:relative;
+margin-left:70px;
+width:460px;
+height:100px;
+overflow:auto;
 
 
 }
@@ -395,10 +428,10 @@ float:left;
 .info {
 	display:block;
 	float:left;
-	height: 100%;
+	height: 400px;
 	width: 400px;
 	margin: 20px;
-	position:relative;
+	overflow:auto;
 
 
 }
@@ -571,38 +604,38 @@ cursor: pointer;
 
 
 .radio-fx.accomodation {
-background: #FFF url('img/accomodation.png'); background-repeat:no-repeat; 
+background: #FFF url('img/cats.png'); background-repeat:no-repeat;  background-position:-10px -90px;
 }
 
 .radio-fx.motoring {
-background: #FFF url('img/motoring.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -174px;
 }
 
 .radio-fx.boating {
-background: #FFF url('img/boating.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -342px;
 }
 
 .radio-fx.people {
-background: #FFF url('img/people.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -426px;
 }
 
 .radio-fx.electronics {
-background: #FFF url('img/electronics.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -258px;
 }
 
 .radio-fx.sporting {
-background: #FFF url('img/sporting.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -594px;
 }
 .radio-fx.baby {
-background: #FFF url('img/baby.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -678px;
 }
 
 .radio-fx.householdgoods {
-background: #FFF url('img/householdgoods.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -510px;
 }
 
 .radio-fx.music {
-background: #FFF url('img/music.png');background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');background-repeat:no-repeat; background-position:-10px -762px;
 }
 
 
@@ -617,8 +650,9 @@ border: none;
 position:relative;
 top:-20px;
 left: 20px;
-background: #FFF url('upload.png');
-background-repeat:no-repeat; 
+background: #FFF url('img/cats.png');
+background-repeat:no-repeat;  
+background-position:-10px -10px;
 
 width:60px;
 height:60px;
@@ -679,10 +713,10 @@ top: -80px;
         background-color: #ddd;
         background-image: -webkit-gradient(linear, left top, left bottom, from(#00B6BF), to(#545454));
         background-image: -webkit-linear-gradient(top, #00B6BF, #545454);
-        background-image: -moz-linear-gradient(top, #eee, #ccc);
-        background-image: -ms-linear-gradient(top, #eee, #ccc);
-        background-image: -o-linear-gradient(top, #eee, #ccc);
-        background-image: linear-gradient(top, #eee, #ccc);
+        background-image: -moz-linear-gradient(top, #00B6BF, #545454);
+        background-image: -ms-linear-gradient(top, #00B6BF, #545454);
+        background-image: -o-linear-gradient(top, #00B6BF, #545454);
+        background-image: linear-gradient(top, #00B6BF, #545454);
         border: 1px solid #777;
         padding: 0 1.5em;
         margin: 0.5em;
@@ -701,12 +735,12 @@ top: -80px;
     .button:hover
     {
         background-color: #eee;        
-        background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ddd));
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#21C8D1), to(#696969));
         background-image: -webkit-linear-gradient(top, #21C8D1, #696969);
-        background-image: -moz-linear-gradient(top, #fafafa, #ddd);
-        background-image: -ms-linear-gradient(top, #fafafa, #ddd);
-        background-image: -o-linear-gradient(top, #fafafa, #ddd);
-        background-image: linear-gradient(top, #fafafa, #ddd);
+        background-image: -moz-linear-gradient(top, #21C8D1, #696969);
+        background-image: -ms-linear-gradient(top, #21C8D1, #696969);
+        background-image: -o-linear-gradient(top, #21C8D1, #696969);
+        background-image: linear-gradient(top, #21C8D1, #696969);
     }
     
     .button:active
@@ -721,7 +755,13 @@ top: -80px;
     .button:focus
     {
         outline: 0;
-        background: #fafafa;
+        background-color: #eee;        
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#21C8D1), to(#696969));
+        background-image: -webkit-linear-gradient(top, #21C8D1, #696969);
+        background-image: -moz-linear-gradient(top, #21C8D1, #696969);
+        background-image: -ms-linear-gradient(top, #21C8D1, #696969);
+        background-image: -o-linear-gradient(top, #21C8D1, #696969);
+        background-image: linear-gradient(top, #21C8D1, #696969);
     }    
     
     .button:before

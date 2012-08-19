@@ -21,13 +21,12 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-	(r'^$', main_page),
 
 	(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/items/latest'}),
 	(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'register/login.html'}),
 	(r'^register/$', register),
 	(r'^register/is-available/$', checkAvailable),
-	(r'^portal/$', portal),
+	(r'^$',  'items.views.latest'),
 	(r'^items/add/$', 'items.views.create'),
 	(r'^items/(?P<id>\d+)/edit/$', 'items.views.create'),
 	(r'^items/latest/$', 'items.views.latest'),

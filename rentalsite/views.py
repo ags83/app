@@ -8,13 +8,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.core.context_processors import csrf
-
-
-	
-def main_page(request):
-
-    return render_to_response('index.html', context_instance=RequestContext(request))
-
 	
 def checkAvailable(request):
     username = request.GET.get("username")
@@ -32,14 +25,14 @@ def register(request):
             cd = form.cleaned_data
             user = User.objects.create_user(cd['username'], cd['email'], cd['password'])
             user.save()
-            return render_to_response('register/success.html', context_instance=RequestContext(request))
+            return HttpResponseRedirect('/items/latest/')
     else:
         form = RegisterForm()
     return render_to_response('register/register.html', {'form':form}, context_instance=RequestContext(request))
 
 @login_required
 def portal(request):
-    return render_to_response('portal/index.html', context_instance=RequestContext(request))
+    return HttpResponseRedirect('/items/latest/')
 '''
         form = UserCreationForm(request.POST)
         if form.is_valid():

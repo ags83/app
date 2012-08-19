@@ -42,15 +42,17 @@
 			  
 			  {% if user.is_authenticated %}
 			<li ><a class="{% active request 'items/search' %}"  href="{% url items.views.search %}"> Browse</a></li>
-			<li><a class="{% active request 'items/add' %}" href="{% url items.views.create %}"> List Item </a></li>
+			<li><a class="{% active request 'items/latest' %}" href="/items/latest"> Latest </a></li>
+			<li><a class="{% active request 'items/add' %}" href="{% url items.views.create %}"> Add Item </a></li>
 			<li><a  href="/logout"> Logout </a></li>
 			<!--  <a  href="/messages/main"> <img class="mail-link" src="/static/mail.jpg" /> </a> -->
 				
 			{% else %} 
 			<li><a class="{% active request 'items/search' %}" href="/items/search"> Browse</a></li>
+			<li><a class="{% active request 'items/latest' %}" href="/items/latest"> Latest </a></li>
 			<li><a class="{% active request 'login' %}" href="/login"> Login </a></li>
 			<li><a class="{% active request 'register' %}" href="/register"> Register </a></li>
-
+			
 			 {%endif%}
 				</ul>
 				

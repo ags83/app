@@ -26,30 +26,46 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def create(request, id=None):
     if id:
         item = get_object_or_404(Item,pk=id)
+        print 'here '
         if item.user != request.user:
             raise HttpResponseForbidden()
     else:
         item = Item()
 
     if request.method == 'POST':
-        form = CreateForm(request.POST,request.FILES)
-        print request.POST
+        if id:
+            form = CreateForm(request.POST,request.FILES, instance=item) 
+        else:
+            form = CreateForm(request.POST,request.FILES)
+        
         if form.is_valid():
             cd = form.cleaned_data
-            if len(request.FILES) == 1:
-                item = Item(name=cd['name'], desc=cd['desc'], user=request.user, image=request.FILES['image'], category=cd['category'], lat=cd['lat'], long=cd['long'])
-            else:
-                item = Item(name=cd['name'], desc=cd['desc'], user=request.user, category=cd['category'],  lat=cd['lat'], long=cd['long'])
+            item = form.save(commit=False)
+            item.user = request.user
             item.save()
-            if id is None:
-                messages.success(request, 'Item Created.')
-            else:
-                messages.success(request, 'Item Updated.')
-
             return HttpResponseRedirect('/items/' + str(item.id) +'/')
+			#item = form.save(commit=False)
+            #temp_item.user = request.user
+            #if len(request.FILES) == 1:
+			#	temp_item.image=request.FILES['image']
+                #item = Item(name=cd['name'], desc=cd['desc'], user=request.user, image=request.FILES['image'], category=cd['category'], lat=cd['lat'], long=cd['long'])
+            #else:
+            #    item = Item(name=cd['name'], desc=cd['desc'], user=request.user, category=cd['category'],  lat=cd['lat'], long=cd['long'])
+            
+            #if id is None:
+            #    temp_item.save()
+            #    messages.success(request, 'Item Created.')
+            #    return HttpResponseRedirect('/items/' + str(temp_item.id) +'/')
+            #else:
+            #   
+            #    f.user = request.user
+            #    f.save()
+            #    messages.success(request, 'Item Updated.')
+            #    return HttpResponseRedirect('/items/' + str(item.id) +'/')
     else:
         form = CreateForm(instance=item)
-    return render_to_response('item/add.html', {'form':form}, context_instance=RequestContext(request))
+	
+    return render_to_response('item/add.html', {'form':form, 'item':item}, context_instance=RequestContext(request))
 	
 @login_required
 def edit(request, item_id):
@@ -88,7 +104,6 @@ def search(request):
 
             searcharea = cd['searcharea']
 			
-            print 'boo'
             if cd['category']:
                 temp_item_list = temp_item_list.filter(category=cd['category'])
             lat1rad = math.radians(lat1)
@@ -132,7 +147,7 @@ def view(request, item_id):
 
 def latest (request):
     try:
-        item_list = Item.objects.order_by('created')
+        item_list = Item.objects.order_by('-created')[:100]
     except Item.DoesNotExist:
         return render_to_response('errors/notexist.html')	
     paginator = Paginator(item_list, 10)

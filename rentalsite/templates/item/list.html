@@ -4,7 +4,7 @@
 {% block body %}
     <div class="search-results list">
 
-    <h2>Search results</h2>
+    <h2>Latest Items</h2>
     <ul class="items-list">
 	
 	{% if not items and request_method == "POST" %}
@@ -19,8 +19,8 @@
 	{% endthumbnail %}
 	<div class="item-text">
 	
-	<span class="itemname"> {{ item.name }} </span>
-	<span class="itemdate"> Listed : {{ item.created|date:"F j"  }} </span>
+	<div class="itemname"> {{ item.name }} </div>
+	<span class="itemdate"> {{ item.created|date:"F j"  }} </span>
 	
 	
 	</div></a>
