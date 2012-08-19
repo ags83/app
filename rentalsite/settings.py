@@ -52,7 +52,7 @@ SITE_ROOT = os.path.realpath(os.path.dirname(__file__))
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-MEDIA_ROOT = 'C:/Users/Aaron/Desktop/webwork/rentalsite/media'  #absolute path to media
+MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
 MEDIA_URL = '/media/' #because admin already using /media
 
 # Absolute path to the directory static files should be collected to.
@@ -127,8 +127,8 @@ WSGI_APPLICATION = 'rentalsite.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-	'C:/Users/Aaron/Desktop/webwork/rentalsite/templates',
-	#os.path.join(SITE_ROOT, 'templates'),
+	#'C:/Users/Aaron/Desktop/webwork/rentalsite/templates',
+	os.path.join(SITE_ROOT, 'templates'),
 	# Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
