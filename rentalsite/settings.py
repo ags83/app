@@ -1,7 +1,7 @@
 # Django settings for rentalsite project.
 import os
 import dj_database_url
-
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,10 +12,9 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
 #DATABASES = {
-#   'default': {
+#    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
 #        'NAME': 'rental_site',                      # Or path to database file if using sqlite3.
 #        'USER': '',                      # Not used with sqlite3.
