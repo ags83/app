@@ -6,6 +6,7 @@
 <div class="form-wrapper register">
      <h2>Registration Form</h2>
     <form action="" method="post">
+	{% csrf_token %}
 		 <div class="fieldWrapper">
        
         <label for="id_username">Username:</label>

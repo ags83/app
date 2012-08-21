@@ -57,9 +57,6 @@ $('nav li').mousemove(function(e) {
 				maxlength: 14,
 			},
 			password_repeat: {
-				required: true,
-				minlength: 6,
-				maxlength: 14,
 				equalTo: "#id_password",
 			}
 		},

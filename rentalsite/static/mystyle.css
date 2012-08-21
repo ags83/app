@@ -571,38 +571,38 @@ cursor: pointer;
 
 
 .radio-fx.accomodation {
-background: #FFF url('img/accomodation.png');
+background: #FFF url('img/accomodation.png'); background-repeat:no-repeat; 
 }
 
 .radio-fx.motoring {
-background: #FFF url('img/motoring.png');
+background: #FFF url('img/motoring.png');background-repeat:no-repeat; 
 }
 
 .radio-fx.boating {
-background: #FFF url('img/boating.png');
+background: #FFF url('img/boating.png');background-repeat:no-repeat; 
 }
 
 .radio-fx.people {
-background: #FFF url('img/people.png');
+background: #FFF url('img/people.png');background-repeat:no-repeat; 
 }
 
 .radio-fx.electronics {
-background: #FFF url('img/electronics.png');
+background: #FFF url('img/electronics.png');background-repeat:no-repeat; 
 }
 
 .radio-fx.sporting {
-background: #FFF url('img/sporting.png');
+background: #FFF url('img/sporting.png');background-repeat:no-repeat; 
 }
 .radio-fx.baby {
-background: #FFF url('img/baby.png');
+background: #FFF url('img/baby.png');background-repeat:no-repeat; 
 }
 
 .radio-fx.householdgoods {
-background: #FFF url('img/householdgoods.png');
+background: #FFF url('img/householdgoods.png');background-repeat:no-repeat; 
 }
 
 .radio-fx.music {
-background: #FFF url('img/music.png');
+background: #FFF url('img/music.png');background-repeat:no-repeat; 
 }
 
 
@@ -618,6 +618,8 @@ position:relative;
 top:-20px;
 left: 20px;
 background: #FFF url('upload.png');
+background-repeat:no-repeat; 
+
 width:60px;
 height:60px;
 cursor: pointer;

@@ -64,8 +64,8 @@
 			<div id="login-content">
 				<form method="post" action="{% url django.contrib.auth.views.login %}">
 					<div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='{{ request.csrf }}' /></div>
-						<input id="id_username" type="text" name="username" class="smaller" placeholder="Your username" required>   
-						<input id="id_password" type="password" name="password" class="smaller" placeholder="Password" required>
+						<input id="id_username_sm" type="text" name="username" class="smaller" placeholder="Your username" required>   
+						<input id="id_password_sm" type="password" name="password" class="smaller" placeholder="Password" required>
 						<input type="submit" class="button" value="Log in">
 						
 						
