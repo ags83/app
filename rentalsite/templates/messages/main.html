@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h2>Your messages</h2>
+	
+	<div class="message-nav">
+	<ul>
+	<li> <a href="/messages/new/" ><img src="/static/newmail.png" />  <span> New Message </span> </a></li>
+	</ul>
+	</div>
+
+   <table class="message-list">
+   <tr>
+	<th>From</th>
+	<th>Header</th>
+	<th>Date</th>
+   </tr>
+        {% for mail in mails %}
+            <tr>
+			<td><a href="/messages/{{mail.id}}/">{{ mail.user_from.username}} </a> </td>
+			 <td> <a href="/messages/{{mail.id}}/">{{ mail.head }}  </a> </td>
+			 <td> {{mail.created_date|date:"d/m/y"}} </td>
+			
+		</tr>
+		
+        {% endfor %}
+    </table>
+	<div class="pagination">
+    <span class="step-links">
+        {% if mails.has_previous %}
+            <a href="?page={{ mails.previous_page_number }}">previous</a>
+        {% endif %}
+		{% if items %}
+        <span class="current">
+            Page {{ mails.number }} of {{ mails.paginator.num_pages }}.
+        </span>
+		{% endif %}
+
+        {% if mails.has_next %}
+            <a href="?page={{ mails.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

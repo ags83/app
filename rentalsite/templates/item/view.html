@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+
+{% block body %}
+
+
+
+	 <script type="text/javascript">
+	 $(document).ready(function() {
+		var lat =  $('#googlemaplat').text();
+		var lng = $('#googlemaplong').text();
+		
+					$('#map_canvas').gmap().bind('init', function(event, map) { 
+						var position = new google.maps.LatLng(lat,lng);
+						$('#map_canvas').gmap('addMarker', { 'position': position, 'bounds': true});
+						$('#map_canvas').gmap('option', 'zoom', 4);
+					});
+				$('.delete-item').click(function() {  
+								var c = confirm("Click OK to permenatly delete this item."); 
+								 if(c == true) {
+									$( ".item-view" ).effect( 'puff', 500, function() { $('#delete-form').submit() });
+								}
+								return false;
+								
+							  } );
+				
+		
+				
+			});
+</script>
+	<div class="item-view">
+	
+		<div class="itemheader" {% ifequal item.category "accomodation" %} style="background: #F7F7F7 url('/static/img/accomodation.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "motoring" %} style="background: #F7F7F7 url('/static/img/motoring.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "electronics" %} style="background: #E3E3E3 url('/static/img/electronics.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "boating" %} style="background: #E3E3E3 url('/static/img/boating.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "people" %} style="background: #E3E3E3 url('/static/img/people.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "householdgoods" %} style="background: #E3E3E3 url('/static/img/householdgoods.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "sporting" %} style="background: #E3E3E3 url('/static/img/sporting.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "baby" %} style="background: #E3E3E3 url('/static/img/baby.png') no-repeat;"{% endifequal %}
+								{% ifequal item.category "music" %} style="background: #E3E3E3 url('/static/img/music.png') no-repeat;"{% endifequal %}>
+									
+		{{ item.name }}
+		<span class="itemdate"> Listed : {{ item.created|date:"F j"  }} </span>
+		
+		{% if user == item.user %}
+	<a href="/items/{{item.id}}/edit"> <img class="edit" src="/static/edit.png" > </a>
+	<form action="/items/{{ item.id }}/delete/" method="post" id="delete-form"> {% csrf_token %}<input class="delete-item" type="image" src="/static/delete.png"> </form>
+	{% endif %}
+		</div>
+
+	<div class="item-content">
+	<div class="image-div">
+	{% if item.image %}
+   {% thumbnail item.image "200x200" crop="center" as im %}
+    <a href="{{ item.image.url }}" class="imagelink" > <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}"> </a>
+	{% endthumbnail %}
+	{% else %}
+	<p> No Image </p>
+	
+	{% endif %}
+	
+	</div>
+		</br>
+	
+		<div id="map_canvas" style="width:200px;height:200px"></div>
+		 <p id="googlemaplat"> {{ item.lat }}</p>
+		 <p id="googlemaplong"> {{ item.long }}</p>
+	</div>
+	
+	<div class="info">
+	
+	 <p>{{ item.desc }}</p>
+	 </div>
+
+
+	</div>
+	</div>
+	</div>
+{% endblock %}

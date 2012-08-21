@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block head %}<title>Create an account</title>{% endblock %}
+
+{% block body %}
+<div class="form-wrapper register">
+     <h2>Registration Form</h2>
+    <form action="" method="post">
+		 <div class="fieldWrapper">
+       
+        <label for="id_username">Username:</label>
+		 {{ form.username.errors }}
+        {{ form.username }}
+    </div>
+		 <div class="fieldWrapper">
+       
+        <label for="id_email">Email:</label>
+		 {{ form.email.errors }}
+        {{ form.email }}
+    </div>
+		 <div class="fieldWrapper">
+       
+        <label for="id_password">Password:</label>
+		 {{ form.password.errors }}
+        {{ form.password }}
+    </div>
+		 <div class="fieldWrapper">
+       
+        <label for="id_password_repeat">Repeat Password:</label>
+		 {{ form.password_repeat.errors }}
+        {{ form.password_repeat }}
+    </div>
+
+        <input type="submit" value="Submit" class="button add">
+    </form>
+	</div>
+{% endblock %}
+

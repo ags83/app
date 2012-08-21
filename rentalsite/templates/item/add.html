@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block title %}Create an account{% endblock %}
+
+{% block body %}
+<div class="form-wrapper add-item">
+     <h2>List an item</h2>
+				<script type="text/javascript">
+		$(document).ready(function() {
+                $('#map_canvas').gmap().bind('init', function(event, map) { 
+				$(map).click( function(event) {
+				$('#map_canvas').gmap('clear', 'markers');
+				$('#map_canvas').gmap('addMarker', {
+				'position': event.latLng, 
+				'position': event.latLng, 
+				'draggable': true, 
+				'bounds': false
+				}, function(map, marker) {
+				$("#id_lat").val(marker.getPosition().lat()); 
+				$("#id_long").val(marker.getPosition().lng()); 
+				
+				
+				})
+			});
+				
+				
+				$('#map_canvas').gmap('getCurrentPosition', function(position, status) {
+				if ( status === 'OK' ) {
+					var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					$('#map_canvas').gmap('addMarker', {'position': clientPosition, 'bounds': true});
+					$('#map_canvas').gmap('option', 'zoom', 10);
+					$("#id_lat").val(position.coords.latitude); 
+				$("#id_long").val(position.coords.longitude); 
+				}
+				else {
+				$('#map_canvas').gmap('addMarker', {'position': '-24.994167,134.866944', 'bounds': true});
+				$('#map_canvas').gmap('option', 'zoom', 6);
+				$("#id_lat").val('-24.994167'); 
+				$("#id_long").val('134.866944'); 
+				
+				
+				
+				}
+			});
+	
+			
+		});
+
+$(function() {
+	$('.fieldWrapper.category-list li input').unwrap();
+    $('input:radio').each(function() {
+        $(this).hide();
+		
+        $('<a tip="' + $(this).attr('value') +  '" class="radio-fx tooltip ' + $(this).attr('value') + '" href="#"> </a>').insertAfter(this);
+	});
+
+	var selected = $("input[@name=category]:checked").attr('value');
+	
+	if ( undefined != selected) {
+		$('.radio-fx.'+ String(selected)).addClass('checked');
+	}else {
+		$('.radio-fx.accomodation').addClass('checked');
+		jQuery("#id_category_0").attr('checked', 'checked');
+		
+	}
+		
+		
+	
+	
+	
+    $('.radio-fx').live('click',function(e) {
+		$('.radio-fx').each(function() {
+			$(this).removeClass('checked');
+		});
+        e.preventDefault();
+		$(this).addClass('checked');
+        $check = $(this).prev('input:radio');
+        var unique = '.'+this.className.split(' ')[1]+' span';
+        $(unique).attr('class', 'radio');
+        $(this).find('span').attr('class', 'radio-checked');
+        $check.attr('checked', true);
+    });
+    
+
+    $('#change-skin').change(function() {
+        $('form table').attr('id', this.value);
+    }); 
+});
+$(function() {
+$('input[type=file]').change(function(){
+   var filename = $(this).val();
+   $('span.filename').fadeIn().text(filename);
+   });
+});
+});
+
+</script>
+
+    <form action="" method="post" enctype="multipart/form-data">
+	
+	
+	
+	{% csrf_token %}
+	<div class="fieldWrapper">
+		 <label for="id_name">Item title / name :</label> </br>
+		{{ form.name.errors }}
+        {{ form.name }}
+			
+<input type="file" name="image" id="id_image" />
+<span class="filename" style="display: inline;position:relative;left:15px; ">Select an Image.</span>
+    </div>
+
+
+	
+
+	<div class="catloc-wrapper">
+	
+	<label for="id_category">Category:</label>  
+	<label for="id_location">Location:</label> </br>  {{ form.category.errors }}  {{ form.lat.as_hidden }} {{ form.long.as_hidden }}
+	<div class="fieldWrapper category-list">
+        {{ form.category }}
+    </div>
+
+	<div id="map_canvas" style="width:265px;height:265px"></div>
+	</div>
+	<div class="fieldWrapper">
+	<label for="id_desc">Item description:</label> </br>
+		 {{ form.desc.errors }}
+        {{ form.desc }}
+    </div>
+		 
+			
+
+        <input type="submit" value="Submit" class="button">
+    </form>
+	
+</div>
+{% endblock %}
+
